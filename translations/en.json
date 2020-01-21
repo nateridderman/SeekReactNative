@@ -285,7 +285,8 @@
     "error_device_support": "Sorry, the device you are using is not supported",
     "error_save": "Sorry, there was a problem saving your photo to the camera roll",
     "error_take": "Sorry, we weren't able to capture your photo",
-    "error_no_photos": "No photos were found in this photo album. Try selecting a different album."
+    "error_no_photos": "No photos were found in this photo album. Try selecting a different album.",
+    "error_mount": "Sorry, we couldn't properly mount the camera"
   },
   "gallery": {
     "label": "Photos",

@@ -69,6 +69,8 @@ const setCameraErrorText = ( error, errorEvent ) => {
     errorText = i18n.t( "camera.error_gallery" );
   } else if ( error === "noPhotos" ) {
     errorText = i18n.t( "camera.error_no_photos" );
+  } else if ( error === "mount" ) {
+    errorText = i18n.t( "camera.error_mount" );
   }
 
   return errorText;

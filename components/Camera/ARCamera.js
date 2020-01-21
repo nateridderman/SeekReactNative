@@ -162,6 +162,8 @@ class ARCamera extends Component<Props, State> {
   handleResumePreview = () => {
     if ( this.camera ) {
       this.camera.resumePreview();
+    } else {
+      this.setError( "mount" );
     }
   }
 
@@ -285,7 +287,11 @@ class ARCamera extends Component<Props, State> {
     return (
       <View style={styles.container}>
         <NavigationEvents
-          onDidFocus={() => this.checkForCameraLaunch()}
+          onDidFocus={() => {
+            this.checkForCameraLaunch();
+            setTimeout( () => this.handleResumePreview(), 1 );
+            // like species detail, this is a hacky way to make sure camera is mounted
+          }}
           onWillBlur={() => {
             this.resetPredictions();
             this.setError( null );
@@ -293,7 +299,6 @@ class ARCamera extends Component<Props, State> {
           }}
           onWillFocus={() => {
             this.requestAndroidPermissions();
-            this.handleResumePreview();
             this.setFocusedScreen( true );
           }}
         />
