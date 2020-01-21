@@ -1,0 +1,6 @@
+# app_identifier("org.iNaturalist.iNatLite") # The bundle identifier of your app
+# apple_id("amanda@inaturalist.org") # Your Apple email address
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
