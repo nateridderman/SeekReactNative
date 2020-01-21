@@ -159,11 +159,33 @@ class ARCamera extends Component<Props, State> {
     }
   }
 
+  handleResumePreviewAndroid = () => {
+    if ( Platform.OS === "android" ) {
+      this.setState( {
+        focusedScreen: true
+        // make sure screen is focused so camera can mount before resuming preview
+      }, () => {
+        if ( this.camera ) {
+          this.camera.resumePreview();
+        } else {
+          setTimeout( () => {
+            if ( this.camera ) {
+              this.camera.resumePreview();
+            } else {
+              this.setError( "mount" );
+            }
+          }, 1 );
+          // like species detail, this is a hacky way to double check that camera has time to mount
+        }
+      } );
+    }
+  }
+
   handleResumePreview = () => {
-    if ( this.camera ) {
-      this.camera.resumePreview();
-    } else {
-      this.setError( "mount" );
+    if ( Platform.OS === "ios" ) {
+      if ( this.camera ) {
+        this.camera.resumePreview();
+      }
     }
   }
 
@@ -289,8 +311,7 @@ class ARCamera extends Component<Props, State> {
         <NavigationEvents
           onDidFocus={() => {
             this.checkForCameraLaunch();
-            setTimeout( () => this.handleResumePreview(), 1 );
-            // like species detail, this is a hacky way to make sure camera is mounted
+            this.handleResumePreviewAndroid(); // Android only
           }}
           onWillBlur={() => {
             this.resetPredictions();
@@ -299,6 +320,7 @@ class ARCamera extends Component<Props, State> {
           }}
           onWillFocus={() => {
             this.requestAndroidPermissions();
+            this.handleResumePreview(); // iOS only
             this.setFocusedScreen( true );
           }}
         />
