@@ -32,35 +32,7 @@ const checkCameraRollPermissions = async () => {
   }
 };
 
-const requestAllCameraPermissions = async () => {
-  const { PERMISSIONS, RESULTS } = PermissionsAndroid;
-
-  const camera = PERMISSIONS.CAMERA;
-  const cameraRollSave = PERMISSIONS.WRITE_EXTERNAL_STORAGE;
-  const cameraRollRetrieve = PERMISSIONS.READ_EXTERNAL_STORAGE;
-
-  try {
-    const granted = await PermissionsAndroid.requestMultiple( [
-      camera,
-      cameraRollSave,
-      cameraRollRetrieve
-    ] );
-
-    if ( granted[camera] !== RESULTS.GRANTED ) {
-      return "permissions";
-    }
-
-    if ( ( granted[cameraRollRetrieve] || granted[cameraRollSave] ) !== RESULTS.GRANTED ) {
-      return "gallery";
-    }
-  } catch ( e ) {
-    return "camera";
-  }
-  return null;
-};
-
 export {
   checkLocationPermissions,
-  checkCameraRollPermissions,
-  requestAllCameraPermissions
+  checkCameraRollPermissions
 };

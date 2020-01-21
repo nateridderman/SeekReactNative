@@ -21,7 +21,7 @@ import icons from "../../assets/icons";
 import ARCameraHeader from "./ARCameraHeader";
 import CameraError from "./CameraError";
 import { getTaxonCommonName, checkIfCameraLaunched } from "../../utility/helpers";
-import { requestAllCameraPermissions } from "../../utility/androidHelpers.android";
+import { checkCameraRollPermissions } from "../../utility/androidHelpers.android";
 import { dirModel, dirTaxonomy } from "../../utility/dirStorage";
 import Modal from "../UIComponents/Modal";
 import { createTimestamp } from "../../utility/dateHelpers";
@@ -93,6 +93,15 @@ class ARCamera extends Component<Props, State> {
     } );
   }
 
+  requestAndroidPermissions = async () => {
+    if ( Platform.OS === "android" ) {
+      const permission = await checkCameraRollPermissions();
+      if ( permission !== true ) {
+        this.setError( "gallery" );
+      }
+    }
+  }
+
   handleTaxaDetected = ( event: Object ) => {
     const { rankToRender, loading, pictureTaken } = this.state;
     const predictions = { ...event.nativeEvent };
@@ -146,7 +155,7 @@ class ARCamera extends Component<Props, State> {
 
   handleDeviceNotSupported = ( event: Object ) => {
     if ( event ) {
-      this.setError( "device" );
+      this.setError( "device", event.nativeEvent.error ); // double check that this works
     }
   }
 
@@ -255,14 +264,6 @@ class ARCamera extends Component<Props, State> {
 
   closeModal() {
     this.setState( { showModal: false } );
-  }
-
-  requestAndroidPermissions() {
-    if ( Platform.OS === "android" ) {
-      requestAllCameraPermissions().then( ( result ) => {
-        this.setError( result );
-      } ).catch( e => console.log( e, "couldn't get camera permissions" ) );
-    }
   }
 
   render() {
