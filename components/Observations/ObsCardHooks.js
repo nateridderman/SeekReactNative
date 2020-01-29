@@ -48,8 +48,6 @@ const ObservationCard = ( {
     if ( backupUri ) {
       const uri = backupUri.split( "/Pictures/" );
       const backupFilepath = `${dirPictures}/${uri[1]}`;
-      console.log( uri[1], "filepath" );
-      console.log( mediumUrl, "medium url" );
       RNFS.readFile( backupFilepath, { encoding: "base64" } ).then( ( encodedData ) => {
         setPhoto( { uri: `data:image/jpeg;base64,${encodedData}` } );
       } ).catch( () => setPhoto( { uri: backupFilepath } ) );

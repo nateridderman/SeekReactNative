@@ -58,12 +58,27 @@
     "@babel/preset-flow": "^7.7.4",
     "babel-eslint": "^10.0.3",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "detox": "^15.1.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-native": "^3.8.1",
+    "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.56.0"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/Seek.app",
+        "build": "xcodebuild -workspace ios/Seek.xcworkspace -scheme Seek -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 11 Pro"
+        }
+      }
+    },
+    "test-runner": "jest"
   }
 }
