@@ -11,6 +11,7 @@ import { fetchiNatStats } from "../utility/iNatStatsHelpers";
 import { addARCameraFiles } from "../utility/helpers";
 import { fetchAccessToken } from "../utility/loginHelpers";
 import { regenerateBackupUris, deleteDebugLogAfter7Days } from "../utility/photoHelpers";
+import { checkAllSeekAndroidFiles } from "../utility/observationHelpers";
 import UserContext from "./UserContext";
 
 if ( process.env.NODE_ENV !== "production" ) {
@@ -44,6 +45,7 @@ class App extends Component {
     setTimeout( addARCameraFiles, 3000 );
     setTimeout( deleteDebugLogAfter7Days, 3000 );
     setTimeout( regenerateBackupUris, 3000 );
+    // setTimeout( checkAllSeekAndroidFiles, 3000 );
 
     // do not wait for commonNames setup to complete. It could take a while to
     // add all names to Realm and we don't want to hold up the UI as names

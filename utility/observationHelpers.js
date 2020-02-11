@@ -1,4 +1,6 @@
 import Realm from "realm";
+import RNFS from "react-native-fs";
+import { Platform } from "react-native";
 
 import UUIDGenerator from "react-native-uuid-generator";
 import { sortNewestToOldest, capitalizeNames } from "./helpers";
@@ -143,8 +145,21 @@ const createSectionList = ( realm ) => {
   return species.length > 0 ? observations : [];
 };
 
+const checkAllSeekAndroidFiles = () => {
+  if ( Platform.OS === "android" ) {
+    RNFS.readDir( RNFS.DocumentDirectoryPath ).then( ( results ) => {
+      results.forEach( ( result ) => {
+        console.log( "\nGOT RESULT", result.path, "size: ", result.size );
+      } );
+    } ).catch( ( err ) => {
+      console.log( err.message, err.code );
+    } );
+  }
+};
+
 export {
   addToCollection,
   removeFromCollection,
-  createSectionList
+  createSectionList,
+  checkAllSeekAndroidFiles
 };

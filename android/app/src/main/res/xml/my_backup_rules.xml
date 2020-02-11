@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <include domain="file" path="db.realm.note"/>
+    <include domain="file" path="db.realm.lock"/>
+    <include domain="file" path="db.realm.management"/>
+    <include domain="file" path="db.realm"/>
+    <!-- <exclude domain="file" path="taxonomy.csv"/>
+    <exclude domain="file" path="optimized-model.tflite"/>
+    <exclude domain="file" path="ReactNativeDevBundle.js"/> -->
+</full-backup-content>
